@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 
 // database conection
-mongoose.connect('mongodb://localhost/login_reg');
+mongoose.connect('mongodb://localhost/polls_db');
 
 var models_path = path.join(__dirname, './../models');
 

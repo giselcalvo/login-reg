@@ -34,7 +34,7 @@ export class LoginRegComponent implements OnInit {
   			console.log(data.errors);
   		}else{
   			console.log("successfully got in ", data)
-  			this._router.navigate(['/']);
+  			this._router.navigate(['/dashboard']);
   		}
   	})
   }
@@ -49,7 +49,7 @@ export class LoginRegComponent implements OnInit {
         this._router.navigate(['login'])
   		}else{
   			console.log("successfully got logged in ", data)
-  			this._router.navigate(['/']);
+  			this._router.navigate(['/dashboard']);
   		}
   	})
   }

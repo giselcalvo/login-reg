@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginRegService } from './../login-reg.service';
+import { PollsService} from './../polls.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,12 +10,15 @@ import { Router } from '@angular/router';
 })
 export class SuccessComponent implements OnInit {
 	currentUser: object = {name: '', username: '', email: ''}
+  polls = [];
+  searchTerm ="";
   errors;
-  constructor(private _logRegService: LoginRegService, private _router: Router) { }
+  constructor(private _pollsService: PollsService, private _logRegService: LoginRegService, private _router: Router) { }
 
 
   ngOnInit() {
     this.getCurrentUser();
+    this.getPolls();
   }
 
   logout(){
@@ -44,6 +48,43 @@ export class SuccessComponent implements OnInit {
           this.currentUser = data;
       }
     
+    })
+  }
+
+  getPolls(){
+    console.log("in success.component.ts: getPolls()")
+    this._pollsService.getPolls()
+    .then((data)=>{
+      if (data.errors){
+        console.log(data.errors);
+      }else{
+        console.log("successfully got all the polls ", data)
+        this.polls = data;
+      }
+    })
+  }
+
+  searchQuestions(){
+    if(this.searchTerm == ""){
+       this.getPolls();
+    }
+   
+    this.polls = this.polls.filter((poll)=>{
+      return poll.question.includes(this.searchTerm);
+    })
+  }
+
+  deletePoll(poll_id){
+    console.log("in deletePoll()", poll_id)
+    this._pollsService.deletePoll(poll_id)
+    .then((data)=>{
+      if (data.errors){
+        console.log(data.errors);
+      }else{
+        console.log("successfully got all the polls ", data)
+        //this.polls = data;
+        this.getPolls()
+      }
     })
   }
 

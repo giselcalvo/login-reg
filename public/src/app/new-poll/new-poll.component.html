@@ -1,0 +1,54 @@
+<a [routerLink]="['/dashboard']">Cancel</a>
+<hr>
+<h3>Put the question and options here:</h3>
+
+<form (submit)="createPoll()">
+	<table>
+		<tr>
+			<td>Question</td>
+			<td><textarea name="question"
+				[(ngModel)]="newPoll.question" #question= "ngModel" required minlength="8" >
+				</textarea></td>
+		</tr>
+		<tr>
+			<td>Option 1:</td>
+			<td><input type="text" name="option1"
+				[(ngModel)]="newPoll.option1" #option1= "ngModel" required minlength="3" >
+				</td>
+		</tr>
+		<tr>
+			<td>Option 2:</td>
+			<td><input type="text" name="option2"
+				[(ngModel)]="newPoll.option2" #option2= "ngModel" required minlength="3" >
+				>
+			</td>
+		</tr>
+		<tr>
+			<td>Option 3:</td>
+			<td><input type="text" name="option3"
+				[(ngModel)]="newPoll.option3" #option3= "ngModel" required minlength="3" >
+				>
+			</td>
+		</tr>
+		<tr>
+			<td>Option 4:</td>
+			<td><input type="text" name="option4"
+				[(ngModel)]="newPoll.option4" #option4= "ngModel" required minlength="3" >
+				>
+			</td>
+		</tr>
+	</table>
+	<input type="submit" name="" value="Create Poll">
+</form>
+
+<p *ngIf="question.errors">Question must be at least 8 characters long</p>
+
+<p *ngIf="option1.errors || option2.errors || option2.errors || option3.errors || option4.errors"> All option are required and must be at least 3 characters long</p>
+
+{{question.errors | json}}
+{{option1.errors | json}}
+{{option2.errors | json}}
+{{option3.errors | json}}
+{{option4.errors | json}}
+
+<p>{{errors | json}}</p>
